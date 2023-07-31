@@ -34,7 +34,7 @@ export function BoardsProvider({ children }: BoardProviderProps) {
   const dragItemColumn = React.useRef<number>(0); // ColumnIndex
   const dragOverItemRow = React.useRef<number>(0); // RowOverIndex
   const dragOverItemColumn = React.useRef<number>(0); // ColumnOverIndex
-  const hasChildOnDiv = useRef<HTMLDivElement[]>([]);
+  const hasChildOnDiv = useRef<HTMLDivElement[]>([]); // storage for child elements
   const indexColumn = useRef<number>(0);
   const booleanIfExistsChild = useRef<boolean>(!0);
 
@@ -66,10 +66,13 @@ export function BoardsProvider({ children }: BoardProviderProps) {
   };
 
   const setRef = (index: number, element: HTMLDivElement | null) => {
+    // this function set all children refs
     if (element !== null) hasChildOnDiv.current[index] = element;
 
   };
   const dragOver = (e: React.DragEvent<HTMLDivElement>, rowIndex: number) => {
+    // this function get all children and your index | set true if exists a chlild
+
     e.preventDefault();
 
     const element = hasChildOnDiv.current[rowIndex];
@@ -90,6 +93,7 @@ export function BoardsProvider({ children }: BoardProviderProps) {
   };
 
   const drop = () => {
+    //make drag and drop work
     const copyListItems = [...boards];
     const dragItem =
       copyListItems[dragItemRow.current].items[dragItemColumn.current];
